@@ -1,0 +1,217 @@
+:root {
+    --primary: #b6895b;
+    --bg: #010101;
+}
+
+/* reset semua style */
+* {                             
+    margin: 0;
+    padding: 0;                                 /*padding itu buat ngasih jarak antar komponen*/
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'poppins', sans-serif;
+    background-color: var(--bg);
+    color: hsl(0, 0%, 100%) ;
+    
+}
+
+/* navbar */
+.navbar {
+    display: flex;                              
+    justify-content: space-between;             /*sejajar secara horizontal*/
+    align-items: center;                        /*sejajar secara vertical*/
+    padding: 1rem 7%;                           /*rem itu dikali 16 pixel*/
+    background-color: rgba(1, 1, 1, 0.8);      /*biar agak transparan harus RGb*/     
+    border-bottom: 1px solid #513c28 ;        /*bikin garis bawah*/   
+    position: fixed;                            /*biar bikin navbar keseluruhannya tetep diatas*/
+    top: 0;                                     /*biar si navbar mentok diatas atau = 0*/
+    left: 0;                                    /*biar dia ukurannya penuh ke kanan dan kiri*/
+    right: 0;                                   /*biar dia ukurannya penuh ke kanan dan kiri*/ 
+    z-index: 9999;                              /*inti dari pembuatan navbar tetap*/       
+}
+
+.navbar .navbar-logo {
+    font-size: 2rem;
+    font-weight: 700;                           /*biar tulisan kelihatan tebel*/
+    color: #fff;
+    font-style: italic;                         
+}
+
+.navbar .navbar-logo span {
+    color: var(--primary);
+}
+
+.navbar .navbar-nav a{
+    color: #fff;
+    display: inline-block;
+    font-size: 1.3rem;
+    margin: 0 1rem;
+}
+
+.navbar .navbar-nav a:hover {
+    color: var(--primary);                  /*klo kursor diarahin kesana berubah warnanya*/
+}
+
+.navbar .navbar-nav a::after {              /*bikin animasi garis bawah di tulisannya*/
+    content: '';
+    display: block;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.1rem solid var(--primary);
+    transform: scaleX(0);                    /*bikin sigaris bawah yg tadi gak keliatan, seakan" gak ada*/
+    transition: 0.2s linear;
+}
+
+.navbar .navbar-nav a:hover::after {          /*setelah kita klik baru animasinya muncul*/
+    transform: scaleX(0.5);
+}
+
+.navbar .navbar-extra a {
+    color: #fff;
+    margin: 0 1rem;
+
+}
+
+.navbar .navbar-extra a:hover {
+    color: var(--primary);
+}
+
+#hamburger-menu {                           /*bikin si hamburger menu menghilang dulu di tampilan windows*/
+    display: none;
+}
+
+/* bagian hero-section */
+
+/* bikin gambar full halaman */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;                /*klo pengen jadi vertikal itu butuh align-item, dan klo mau horizontal pake justife-content*/
+    background-image: url('../media/buku.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;                 /* knapa bisa relatif tuh berpengaruh oleh hero::after posisi absolute*/
+}
+
+/* bikin bagian hero ada gradasi bawahnya */
+.hero::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 30%;                        /*jgan seratus heihgt nya ntar tombolnya gk bakal bisa berfungsi*/
+    bottom: 0;
+    background: linear-gradient(0deg, rgb(1,1,3,1) 8%, rgb(255,255,255,0) 50%);
+}
+
+.hero .content {
+    padding: 1.4rem 7%;                 /*sama kek navbar*/
+    max-width: 70rem;
+}
+
+.hero .content h1 {
+    font-size: 5em;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(1,1,3,0.5);
+    line-height: 1.2;                   /*tinggi antar baris teks*/
+}
+
+.hero .content h1 span {
+    color:rgb(255, 255, 255);
+}
+
+.hero .content p {
+    font-size: 1,6rem;
+    margin-top: 1rem;
+    line-height: 1.4;
+    font-weight: 100;                   /*biar tulisan tipis*/
+    text-shadow: 1px 1px 3px rgba(1,1,3,0.5);
+    mix-blend-mode: difference;             /*warna auto kontras*/
+}
+
+.hero .content .cta {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    color: #fff;
+    background-color:rgb(20, 194, 218);
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgb(1,1,3,0.5);
+}
+
+/* ukuran medianya */
+
+/* laptop/windows */
+@media (max-width: 1366px) {            /*ngeubah ukuran font sesuai ukuran layar*/
+    html {
+        font-size: 75%;
+    }
+}
+
+/* tablet */
+@media (max-width: 768px) {             /*ngeubah ukuran font sesuai ukuran layar*/
+    html {
+        font-size: 62.5%;
+    }
+    #hamburger-menu {                   /*munculin hamburger menu di ukuran tablet*/
+        display: inline-block;
+    }
+    .navbar .navbar-nav{                /*bikin si navbar yg ada di tengah seakan" ilang tapi sebenrnya ada di luar layar = right-100%*/
+        position: absolute;
+        top: 100%;
+        right: -100%;                   /*mindahin si yg di tengh keluar layar*/
+        background-color: #fff;
+        width: 30rem;                   /*lebarnya*/
+        height: 100vh;                  
+        transition: 0.3s;
+    }
+    
+
+    .navbar .navbar-nav.active {
+        right: 0;
+    }
+
+    /* benerin menu di dlem hamburger */
+    .navbar .navbar-nav a {
+        color: var(--bg);
+        display: block;                     /*block itu biar elementya sejajar ke bawah*/
+        margin: 1.5rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+    }
+
+    /* benerin garis bawahnya */
+    .navbar .navbar-nav a::after {
+        transform-origin: 0 0;              /*0 0 itu artinya sumbu x dan y bernilai 0*/
+    }
+    
+    /* benerin si garis bawahnya agar gak terlalu panjang */
+    .navbar .navbar-nav a:hover::after {
+        transform: scaleX(0.2);             
+    }
+
+    .about .row {
+        flex-wrap: wrap;                    /*bikin si yg di dlem wrap .row itu turun ke bawah*/
+    }
+
+    .about .row .about-img {               /*ngatur gambar*/
+        height: 24rem;
+        object-fit: cover;
+        object-position: center;
+    }
+
+}
+
+/* mobile */
+@media (max-width: 450px) {             /*ngeubah ukuran font sesuai ukuran layar*/
+    html {
+        font-size: 55%;
+    }
+}
+
